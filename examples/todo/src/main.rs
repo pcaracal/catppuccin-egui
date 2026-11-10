@@ -92,9 +92,9 @@ impl Default for App {
 }
 
 impl eframe::App for App {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
         catppuccin_egui::set_theme(
-            ctx,
+            ui.ctx(),
             match self.theme {
                 CatppuccinTheme::Frappe => FRAPPE,
                 CatppuccinTheme::Latte => LATTE,
@@ -115,9 +115,9 @@ impl eframe::App for App {
             .get_mut(&egui::FontFamily::Proportional)
             .unwrap()
             .insert(0, "open-sans".to_string());
-        ctx.set_fonts(fonts);
+        ui.ctx().set_fonts(fonts);
 
-        egui::CentralPanel::default().show(ctx, |ui| {
+        egui::CentralPanel::default().show(ui, |ui| {
             ui.columns(2, |columns| {
                 columns[0].heading("Todos");
                 columns[1].with_layout(egui::Layout::right_to_left(egui::Align::TOP), |ui| {
